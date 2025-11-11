@@ -275,8 +275,8 @@
         org-hide-emphasis-markers t
         )
 
-  (setq org-agenda-files '("~/Org/Goals.org"
-                          "~/Org/Habits.org"))
+  (setq org-agenda-files '("~Anyfile.org"
+                          "~Anyfile.org"))
 
 
 (setq org-agenda-start-with-log-mode t)
@@ -338,36 +338,36 @@
 
 
 (setq org-refile-targets
-      '(("~/orgfiles/Archive.org" :maxlevel . 1)
+      '(("~Anyfile.org" :maxlevel . 1)
         ))
 
 
 (setq org-capture-templates
   `(("t" "Tasks / Projects")
-    ("tt" "Task" entry (file+olp "~/orgfiles/Tasks.org" "Inbox")
+    ("tt" "Task" entry (file+olp "~Anyfile.org" "Inbox")
          "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
     ("ts" "Clocked Entry Subtask" entry (clock)
          "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
 
     ("j" "Journal Entries")
     ("jj" "Journal" entry
-         (file+olp+datetree "~/orgfiles/Journal.org")
+         (file+olp+datetree "~Anyfile.org")
          "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
          ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
          :clock-in :clock-resume
          :empty-lines 1)
     ("jm" "Meeting" entry
-         (file+olp+datetree "~/orgfiles/Journal.org")
+         (file+olp+datetree "~Anyfile.org")
          "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
          :clock-in :clock-resume
          :empty-lines 1)
 
     ("w" "Workflows")
-    ("we" "Checking Email" entry (file+olp+datetree "~/orgfiles/Journal.org")
+    ("we" "Checking Email" entry (file+olp+datetree "~Anyfile.org")
          "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
 
     ("m" "Metrics Capture")
-    ("mw" "Weight" table-line (file+headline "~/orgfiles/Metrics.org" "Weight")
+    ("mw" "Weight" table-line (file+headline "~Anyfile.org" "Weight")
      "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
 
 ;; Save Org buffers after refiling!
@@ -508,7 +508,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("/Users/Adelt/Org/Habits.org" "/Users/Adelt/Org/Goals.org"))
+   '("Anyfile.org"))
  '(package-selected-packages
    '(which-key vlc visual-fill-column typescript-mode rainbow-delimiters org-bullets lsp-ui lsp-treemacs lsp-ivy ivy-rich helpful general forge evil-collection emms-player-mpv-jp-radios doom-themes doom-modeline counsel-projectile company-box command-log-mode all-the-icons-dired)))
 (custom-set-faces
