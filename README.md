@@ -18,6 +18,10 @@ This distribution of emacs is designed to provide a powerful and highly customiz
 
 - **Version Control Integration**: Git and other version control systems are seamlessly integrated into My Emacs Distribution, allowing you to manage your projects effortlessly.
 
+## Prerequisite
+
+You need the font "Fira Code".
+
 ## Installation
 
 To install MinoMacs, follow this single step!
