@@ -1,4 +1,4 @@
-(setq inhibit-startup-message t)
+ (setq inhibit-startup-message t)
 
 (scroll-bar-mode -1)
 
@@ -162,7 +162,7 @@
 
 (use-package doom-themes)
 
-(load-theme 'doom-dracula t)
+(load-theme 'doom-miramare t)
 
 (use-package helpful
 :ensure t
@@ -275,9 +275,8 @@
         org-hide-emphasis-markers t
         )
 
-  (setq org-agenda-files '("~/orgfiles/Tasks.org"
-                           "~/orgfiles/Birthdays.org"
-                           "~/orgfiles/Habits.org"))
+  (setq org-agenda-files '("~/Org/Goals.org"
+                          "~/Org/Habits.org"))
 
 
 (setq org-agenda-start-with-log-mode t)
@@ -374,15 +373,17 @@
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
-
+(require 'ob-js)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
    (python . t)
    (lisp . t)
    (java . t)
-;   (javascript . t)
+   (js . t)
    (fortran . t)))
+
+(add-to-list 'org-babel-tangle-lang-exts '("js" . "js"))
 
 
 (setq org-confirm-babel-evaluate nil)
@@ -393,9 +394,12 @@
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
+(add-to-list 'org-structure-template-alist '("js" . "src js"))
+
+(setq org-agenda-include-diary t)
 
 (require 'org-habit)
-  (add-to-list 'org-modules 'org-habits)
+  (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
 
 (use-package org-bullets
@@ -411,7 +415,7 @@
                 (org-level-7 . 1.1)
                 (org-level-8 . 1.1)
                 ))
-  (set-face-attribute (car face) nil :font "Monaco" :weight 'regular :height (cdr face)))
+  (set-face-attribute (car face) nil :font "Fira Code" :weight 'regular :height (cdr face)))
 )
 
 (font-lock-add-keywords 'org-mode
@@ -419,16 +423,19 @@
      (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "."))))))
 
 (with-eval-after-load 'org-faces
-(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+   (set-face-attribute 'default nil :font "Fira Code") 
+    (set-face-attribute 'fixed-pitch nil :font "Andale Mono")
+  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-table nil :foreground nil :inherit 'fixed-pitch)
 
-(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
 
-(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
 
-(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
 
-(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-)
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  )
 
 (defun adel/org-mode-visual-fill ()
 (setq-default visual-fill-column-width 100
@@ -479,3 +486,34 @@
   :after lsp)
 
 (use-package lsp-ivy)
+
+(use-package emms
+  :ensure t
+  :config
+  (require 'emms-setup)
+  (emms-all)
+  (emms-default-players)
+  (setq emms-source-file-default-directory "~/Media/"
+        emms-playlist-buffer-name "*Media*"
+        emms-info-asynchronously t
+        emms-source-file-directory-tree-function 'emms-source-file-directory-tree-find)
+  (define-emms-simple-player vlc '(file url)
+    (regexp-opt '(".ogg" ".mp3" ".wav" ".mpg" ".mpeg" ".wmv" ".wma"
+                  ".mov" ".avi" ".divx" ".ogm" ".asf" ".mkv" "http://" "https://"
+                  "mms://" "rtsp://" "vlc://"))
+    "vlc" "-I" "rc"))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("/Users/Adelt/Org/Habits.org" "/Users/Adelt/Org/Goals.org"))
+ '(package-selected-packages
+   '(which-key vlc visual-fill-column typescript-mode rainbow-delimiters org-bullets lsp-ui lsp-treemacs lsp-ivy ivy-rich helpful general forge evil-collection emms-player-mpv-jp-radios doom-themes doom-modeline counsel-projectile company-box command-log-mode all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
